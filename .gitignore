@@ -1,0 +1,17 @@
+# Archivos y carpetas de Git
+.git/
+
+# Configuración local y credenciales
+.env
+.env.*
+!.env.example
+
+# Archivos temporales
+*.log
+.DS_Store
+Thumbs.db
+# Excluir temporalmente el código PHP
+index.php
+vehiculos.php
+parqueadero.php
+historial.php

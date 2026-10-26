@@ -1,0 +1,36 @@
+
+@startuml casos_uso
+title Diagrama de Casos de Uso - Autos Colombia
+
+left to right direction
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam usecase {
+  BackgroundColor #EAF2F8
+  BorderColor #0D3761
+  FontColor #1B2631
+}
+skinparam actor {
+  BorderColor #0D3761
+  FontColor #1B2631
+}
+
+actor Administrador as Admin
+
+rectangle "Sistema Autos Colombia" {
+  usecase "Registrar vehiculo" as UC1
+  usecase "Registrar entrada" as UC2
+  usecase "Consultar vehiculos\ndentro del parqueadero" as UC3
+  usecase "Registrar salida" as UC4
+  usecase "Agregar observaciones" as UC5
+  usecase "Consultar historial" as UC6
+}
+
+Admin --> UC1
+Admin --> UC2
+Admin --> UC3
+Admin --> UC4
+Admin --> UC5
+Admin --> UC6
+
+@enduml

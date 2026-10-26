@@ -1,0 +1,23 @@
+
+@startuml
+title Arquitectura del Sistema Autos Colombia
+
+actor Administrador
+
+package "Presentacion Web" {
+    rectangle "Interfaz HTML y CSS" as Interfaz
+}
+
+package "Logica de Negocio" {
+    rectangle "Aplicacion PHP" as PHP
+}
+
+package "Capa de Datos" {
+    database "MySQL\n autos_colombia" as BD
+}
+
+Administrador --> Interfaz
+Interfaz --> PHP : Solicitudes
+PHP --> BD : Consultas y registros
+
+@enduml

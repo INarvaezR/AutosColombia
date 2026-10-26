@@ -1,0 +1,57 @@
+
+@startuml clases
+title Diagrama de Clases - Autos Colombia
+
+skinparam class {
+  BackgroundColor #EAF2F8
+  BorderColor #0D3761
+  FontColor #1B2631
+}
+skinparam shadowing false
+
+class Vehiculo {
+  - idVehiculo : int
+  - placa : String
+  - tipoVehiculo : String
+  - marca : String
+  - color : String
+  - fechaRegistro : DateTime
+  --
+  + registrar() : boolean
+  + consultarPorPlaca() : Vehiculo
+}
+
+class RegistroParqueo {
+  - idRegistro : int
+  - fechaEntrada : DateTime
+  - fechaSalida : DateTime
+  - observaciones : String
+  --
+  + registrarEntrada() : boolean
+  + registrarSalida() : boolean
+  + actualizarObservaciones() : boolean
+}
+
+class ConexionBD {
+  - servidor : String
+  - baseDatos : String
+  --
+  + conectar() : Connection
+  + ejecutarConsulta() : ResultSet
+}
+
+Vehiculo "1" -- "0..*" RegistroParqueo : tiene
+RegistroParqueo ..> ConexionBD : utiliza
+Vehiculo ..> ConexionBD : consulta
+
+note bottom of Vehiculo
+  Representa los datos
+  del vehiculo registrado.
+end note
+
+note bottom of RegistroParqueo
+  Almacena las entradas,
+  salidas y observaciones.
+end note
+
+@enduml

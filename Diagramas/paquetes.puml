@@ -1,0 +1,29 @@
+
+@startuml paquetes
+title Diagrama de Paquetes - Autos Colombia
+
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam package {
+  BackgroundColor #EAF2F8
+  BorderColor #0D3761
+  FontColor #1B2631
+}
+
+package "Presentacion" as Presentacion {
+  [vehiculos.php]
+  [parqueadero.php]
+  [historial.php]
+}
+
+package "Acceso a Datos" as Datos {
+  [conexion.php]
+  [Consultas SQL]
+}
+
+database "MySQL\nautos_colombia" as BD
+
+Presentacion ..> Datos : solicita operaciones
+Datos ..> BD : consulta y registra
+
+@enduml

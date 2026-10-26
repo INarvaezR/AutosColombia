@@ -1,0 +1,44 @@
+
+@startuml mr
+title Modelo Relacional - Autos Colombia
+
+hide methods
+hide stereotypes
+skinparam linetype ortho
+skinparam class {
+  BackgroundColor #EAF2F8
+  BorderColor #0D3761
+  FontColor #1B2631
+  AttributeFontSize 12
+}
+
+class vehiculos {
+  + id_vehiculo : INT <<PK>>
+  + placa : VARCHAR(10) <<UQ>>
+  + tipo_vehiculo : VARCHAR(30)
+  + marca : VARCHAR(50)
+  + color : VARCHAR(30)
+  + fecha_registro : TIMESTAMP
+}
+
+class registros_parqueo {
+  + id_registro : INT <<PK>>
+  + id_vehiculo : INT <<FK>>
+  + fecha_entrada : DATETIME
+  + fecha_salida : DATETIME NULL
+  + observaciones : VARCHAR(255) NULL
+}
+
+vehiculos "1" -- "0..*" registros_parqueo : id_vehiculo
+
+note bottom of vehiculos
+  PK = Clave primaria
+  UQ = Valor unico
+end note
+
+note bottom of registros_parqueo
+  PK = Clave primaria
+  FK = Clave foranea
+end note
+
+@enduml

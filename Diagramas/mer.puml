@@ -1,0 +1,26 @@
+
+@startuml mer
+title Modelo Entidad-Relacion - Autos Colombia
+
+entity VEHICULOS {
+  id_vehiculo : INT <<PK>>
+  --
+  placa : VARCHAR(10) <<UQ>>
+  tipo_vehiculo : VARCHAR(30)
+  marca : VARCHAR(50)
+  color : VARCHAR(30)
+  fecha_registro : TIMESTAMP
+}
+
+entity REGISTROS_PARQUEO {
+  id_registro : INT <<PK>>
+  --
+  id_vehiculo : INT <<FK>>
+  fecha_entrada : DATETIME
+  fecha_salida : DATETIME
+  observaciones : VARCHAR(255)
+}
+
+VEHICULOS ||--o{ REGISTROS_PARQUEO : registra
+
+@enduml
