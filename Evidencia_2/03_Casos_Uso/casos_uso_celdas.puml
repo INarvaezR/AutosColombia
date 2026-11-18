@@ -1,0 +1,29 @@
+
+@startuml
+left to right direction
+
+title Casos de Uso - Gestion de Celdas\nSistema Autos Colombia - Iteracion 2
+
+actor Administrador
+
+rectangle "Gestion de Celdas" {
+    usecase "Registrar celda" as UC1
+    usecase "Consultar celdas" as UC2
+    usecase "Actualizar informacion de una celda" as UC3
+    usecase "Consultar disponibilidad" as UC4
+    usecase "Asignar celda a un vehiculo" as UC5
+    usecase "Liberar celda" as UC6
+    usecase "Gestionar celdas en mantenimiento" as UC7
+    usecase "Consultar historial de ocupacion" as UC8
+}
+
+Administrador -- UC1
+Administrador -- UC2
+Administrador -- UC3
+Administrador -- UC4
+Administrador -- UC5
+Administrador -- UC6
+Administrador -- UC7
+Administrador -- UC8
+
+@enduml

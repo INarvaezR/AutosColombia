@@ -1,0 +1,29 @@
+
+@startuml
+title Diagrama de Secuencia - Registro de Salida\nAutos Colombia - Iteraciones 1 y 2
+
+actor Administrador
+participant "Interfaz Web PHP" as Interfaz
+database "Base de Datos MySQL" as BD
+
+Administrador -> Interfaz: Solicitar registro de salida
+Interfaz -> BD: Consultar vehiculos dentro del parqueadero
+BD --> Interfaz: Lista de vehiculos ocupando celdas
+Interfaz --> Administrador: Mostrar vehiculos dentro del parqueadero
+
+Administrador -> Interfaz: Seleccionar vehiculo
+Interfaz -> BD: Consultar registro de parqueo activo
+BD --> Interfaz: Datos de entrada y celda asignada
+
+Interfaz --> Administrador: Mostrar informacion del vehiculo
+Administrador -> Interfaz: Confirmar salida
+
+Interfaz -> BD: Registrar fecha y hora de salida
+BD --> Interfaz: Confirmar actualizacion
+
+Interfaz -> BD: Liberar celda asignada
+BD --> Interfaz: Confirmar disponibilidad
+
+Interfaz --> Administrador: Mostrar salida registrada correctamente
+
+@enduml

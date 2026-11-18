@@ -1,0 +1,49 @@
+
+@startuml
+title Diagrama de Secuencia - Registro de Usuarios\nAutos Colombia - Iteración 2
+
+autonumber
+skinparam shadowing false
+skinparam sequence {
+    ArrowColor #0D3761
+    LifeLineBorderColor #0D3761
+    LifeLineBackgroundColor #EAF2F8
+    ParticipantBorderColor #0D3761
+    ParticipantBackgroundColor #EAF2F8
+    ActorBorderColor #0D3761
+    ActorBackgroundColor #FFFFFF
+}
+
+actor Administrador
+boundary "Interfaz de gestión\nde usuarios" as Interfaz
+control "Controlador de usuarios\n(PHP)" as Controlador
+control "Validador de datos" as Validador
+database "Base de datos\nMySQL" as BD
+
+Administrador -> Interfaz : Solicitar registro de usuario
+Interfaz -> Administrador : Mostrar formulario
+Administrador -> Interfaz : Ingresar datos del usuario
+Interfaz -> Controlador : Enviar datos del formulario
+Controlador -> Validador : Validar campos obligatorios
+
+alt Datos incompletos o inválidos
+    Validador --> Controlador : Informar errores
+    Controlador --> Interfaz : Devolver mensajes de validación
+    Interfaz --> Administrador : Mostrar errores
+else Datos válidos
+    Validador --> Controlador : Datos correctos
+    Controlador -> BD : Consultar documento de identidad
+    BD --> Controlador : Resultado de consulta
+
+    alt Usuario ya registrado
+        Controlador --> Interfaz : Informar documento duplicado
+        Interfaz --> Administrador : Mostrar mensaje de duplicidad
+    else Usuario no registrado
+        Controlador -> BD : Insertar nuevo usuario
+        BD --> Controlador : Confirmar registro
+        Controlador --> Interfaz : Enviar confirmación
+        Interfaz --> Administrador : Mostrar registro exitoso
+    end
+end
+
+@enduml

@@ -1,0 +1,72 @@
+
+@startuml
+title Diagrama de Componentes\nSistema Autos Colombia - Iteración 2
+
+left to right direction
+skinparam componentStyle rectangle
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam defaultFontName Arial
+skinparam ArrowColor #0D3761
+skinparam ComponentBorderColor #0D3761
+skinparam ComponentBackgroundColor #EAF2F8
+skinparam PackageBorderColor #0D3761
+skinparam PackageBackgroundColor #F4F7FA
+
+actor "Administrador" as Admin
+
+package "Interfaz de usuario" {
+    [Módulo de inicio] as Inicio
+    [Gestión de vehículos] as Vehiculos
+    [Gestión de entradas y salidas] as Parqueadero
+    [Historial de parqueo] as Historial
+    [Gestión de usuarios] as Usuarios
+    [Gestión de celdas] as Celdas
+}
+
+package "Lógica de negocio" {
+    [Control de usuarios] as ControlUsuarios
+    [Control de celdas] as ControlCeldas
+    [Control de ocupación] as ControlOcupacion
+    [Validación de datos] as Validacion
+}
+
+package "Acceso a datos" {
+    [Conexión PHP - MySQL] as Conexion
+    database "Base de datos\nAutos Colombia" as BD
+}
+
+Admin --> Inicio
+Admin --> Vehiculos
+Admin --> Parqueadero
+Admin --> Historial
+Admin --> Usuarios
+Admin --> Celdas
+
+Inicio --> Validacion
+Vehiculos --> Validacion
+Parqueadero --> ControlOcupacion
+Historial --> ControlOcupacion
+Usuarios --> ControlUsuarios
+Celdas --> ControlCeldas
+
+ControlUsuarios --> Validacion
+ControlCeldas --> Validacion
+ControlOcupacion --> Validacion
+
+Validacion --> Conexion
+ControlUsuarios --> Conexion
+ControlCeldas --> Conexion
+ControlOcupacion --> Conexion
+Conexion --> BD
+
+note right of BD
+  Almacenamiento de:
+  - Usuarios
+  - Vehículos
+  - Celdas
+  - Registros de parqueo
+  - Historial de ocupación
+end note
+
+@enduml

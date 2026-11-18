@@ -1,0 +1,28 @@
+
+@startuml
+left to right direction
+
+title Casos de Uso - Gestion de Usuarios
+title Sistema Autos Colombia - Iteracion 2
+
+actor Administrador
+
+rectangle "Gestion de Usuarios" {
+    (Registrar usuario) as UC1
+    (Consultar usuarios) as UC2
+    (Buscar usuarios) as UC3
+    (Actualizar informacion del usuario) as UC4
+    (Activar o desactivar usuario) as UC5
+    (Asociar vehiculos a un usuario) as UC6
+    (Consultar vehiculos de un usuario) as UC7
+}
+
+Administrador --> UC1
+Administrador --> UC2
+Administrador --> UC3
+Administrador --> UC4
+Administrador --> UC5
+Administrador --> UC6
+Administrador --> UC7
+
+@enduml

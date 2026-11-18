@@ -138,58 +138,73 @@
 
     <nav>
         <a href="index.php" class="activo">Inicio</a>
+        <a href="usuarios.php">Usuarios</a>
         <a href="vehiculos.php">Vehículos</a>
+        <a href="celdas.php">Celdas</a>
         <a href="parqueadero.php">Parqueadero</a>
         <a href="historial.php">Historial</a>
     </nav>
 
     <main>
-        <section class="bienvenida">
-            <h2>Bienvenido a Autos Colombia</h2>
 
-            <p>
-                Administra los vehículos registrados y controla sus
-                movimientos de entrada y salida del parqueadero desde
-                un solo lugar.
-            </p>
-        </section>
+<section class="modulos">
 
-        <section class="modulos">
+    <article class="tarjeta">
+        <h3>Vehículos</h3>
+        <p>
+            Consulta los vehículos registrados y revisa sus
+            datos de identificación.
+        </p>
+        <a href="vehiculos.php" class="boton">
+            Consultar vehículos
+        </a>
+    </article>
 
-            <article class="tarjeta">
-                <h3>Vehículos</h3>
-                <p>
-                    Consulta los vehículos registrados y revisa sus
-                    datos de identificación.
-                </p>
-                <a href="vehiculos.php" class="boton">
-                    Consultar vehículos
-                </a>
-            </article>
+    <article class="tarjeta">
+        <h3>Control del parqueadero</h3>
+        <p>
+            Gestiona las entradas, las salidas y las observaciones
+            de los vehículos.
+        </p>
+        <a href="parqueadero.php" class="boton">
+            Abrir parqueadero
+        </a>
+    </article>
 
-            <article class="tarjeta">
-                <h3>Control del parqueadero</h3>
-                <p>
-                    Gestiona las entradas, las salidas y las observaciones
-                    de los vehículos.
-                </p>
-                <a href="parqueadero.php" class="boton">
-                    Abrir parqueadero
-                </a>
-            </article>
+    <article class="tarjeta">
+        <h3>Historial de movimientos</h3>
+        <p>
+            Consulta los registros de entrada y salida almacenados
+            en el sistema.
+        </p>
+        <a href="historial.php" class="boton">
+            Consultar historial
+        </a>
+        </article>
 
-            <article class="tarjeta">
-                <h3>Historial de movimientos</h3>
-                <p>
-                    Consulta los registros de entrada y salida almacenados
-                    en el sistema.
-                </p>
-                <a href="historial.php" class="boton">
-                    Consultar historial
-                </a>
-            </article>
+    <article class="tarjeta">
+        <h3>Gestión de usuarios</h3>
+        <p>
+            Registra, consulta y actualiza la información de los
+            usuarios vinculados al parqueadero.
+        </p>
+        <a href="usuarios.php" class="boton">
+            Administrar usuarios
+        </a>
+    </article>
 
-        </section>
+    <article class="tarjeta">
+        <h3>Gestión de celdas</h3>
+        <p>
+            Administra las celdas del parqueadero, consulta su
+            disponibilidad y controla las asignaciones.
+        </p>
+        <a href="celdas.php" class="boton">
+            Administrar celdas
+        </a>
+    </article>
+
+</section>
     </main>
 
     <footer>

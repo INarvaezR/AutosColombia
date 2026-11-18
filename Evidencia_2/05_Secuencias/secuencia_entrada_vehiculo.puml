@@ -1,0 +1,38 @@
+
+@startuml
+title Diagrama de Secuencia - Registro de Entrada\nAutos Colombia - Iteraciones 1 y 2
+
+actor Administrador
+participant "Interfaz Web PHP" as Interfaz
+database "Base de Datos MySQL" as BD
+
+Administrador -> Interfaz: Solicitar registro de entrada
+Interfaz -> BD: Consultar vehiculos registrados
+BD --> Interfaz: Lista de vehiculos
+Interfaz -> BD: Consultar celdas disponibles
+BD --> Interfaz: Lista de celdas disponibles
+Interfaz --> Administrador: Mostrar formulario de entrada
+
+Administrador -> Interfaz: Seleccionar vehiculo y celda
+
+alt Vehiculo ya registrado
+    Interfaz -> BD: Consultar datos del vehiculo
+    BD --> Interfaz: Datos del vehiculo
+else Vehiculo nuevo
+    Administrador -> Interfaz: Ingresar datos del vehiculo
+    Interfaz -> BD: Registrar vehiculo
+    BD --> Interfaz: Confirmar registro
+end
+
+Interfaz -> BD: Verificar disponibilidad de la celda
+BD --> Interfaz: Confirmar disponibilidad
+
+Interfaz -> BD: Crear registro de entrada
+BD --> Interfaz: Confirmar registro
+
+Interfaz -> BD: Actualizar estado de la celda a ocupada
+BD --> Interfaz: Confirmar actualizacion
+
+Interfaz --> Administrador: Mostrar entrada registrada correctamente
+
+@enduml

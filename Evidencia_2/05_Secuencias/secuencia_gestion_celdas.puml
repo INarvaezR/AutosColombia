@@ -1,0 +1,42 @@
+@startuml
+title Diagrama de Secuencia - Gestion de Celdas\nAutos Colombia - Iteracion 2
+
+actor Administrador
+participant "Interfaz Web PHP" as Interfaz
+database "Base de Datos MySQL" as BD
+
+Administrador -> Interfaz: Ingresar al modulo de celdas
+Interfaz -> BD: Consultar celdas registradas
+BD --> Interfaz: Lista de celdas
+Interfaz --> Administrador: Mostrar listado de celdas
+
+Administrador -> Interfaz: Solicitar registro de celda
+Interfaz --> Administrador: Mostrar formulario
+Administrador -> Interfaz: Ingresar datos de la celda
+
+Interfaz -> BD: Validar codigo de celda
+BD --> Interfaz: Resultado de validacion
+
+alt Codigo disponible
+    Interfaz -> BD: Registrar nueva celda
+    BD --> Interfaz: Confirmar registro
+    Interfaz --> Administrador: Celda registrada correctamente
+else Codigo duplicado
+    Interfaz --> Administrador: Informar que el codigo ya existe
+end
+
+opt Gestionar estado de celda
+    Administrador -> Interfaz: Seleccionar celda y cambiar estado
+    Interfaz -> BD: Consultar estado y ocupacion
+    BD --> Interfaz: Informacion de la celda
+
+    alt Celda desocupada
+        Interfaz -> BD: Actualizar estado de la celda
+        BD --> Interfaz: Confirmar actualizacion
+        Interfaz --> Administrador: Mostrar nuevo estado
+    else Celda ocupada
+        Interfaz --> Administrador: Informar que no puede pasar a mantenimiento
+    end
+end
+
+@enduml

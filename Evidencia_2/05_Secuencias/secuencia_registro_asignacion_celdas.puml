@@ -1,0 +1,71 @@
+
+@startuml
+title Diagrama de Secuencia - Registro y Asignación de Celdas\nAutos Colombia - Iteración 2
+
+autonumber
+skinparam shadowing false
+skinparam sequence {
+    ArrowColor #0D3761
+    LifeLineBorderColor #0D3761
+    LifeLineBackgroundColor #EAF2F8
+    ParticipantBorderColor #0D3761
+    ParticipantBackgroundColor #EAF2F8
+}
+
+actor Administrador
+boundary "Interfaz de gestión\nde celdas" as Interfaz
+control "Controlador de celdas\n(PHP)" as Controlador
+control "Validador de datos" as Validador
+database "Base de datos\nMySQL" as BD
+
+Administrador -> Interfaz : Solicitar registro de celda
+Interfaz -> Administrador : Mostrar formulario
+Administrador -> Interfaz : Ingresar identificación y datos
+Interfaz -> Controlador : Enviar datos de la celda
+Controlador -> Validador : Validar información
+Validador --> Controlador : Resultado de validación
+
+alt Datos inválidos
+    Controlador --> Interfaz : Informar errores
+    Interfaz --> Administrador : Mostrar mensajes
+else Datos válidos
+    Controlador -> BD : Consultar identificación de celda
+    BD --> Controlador : Resultado de consulta
+
+    alt Celda ya registrada
+        Controlador --> Interfaz : Informar duplicidad
+        Interfaz --> Administrador : Mostrar mensaje
+    else Celda no registrada
+        Controlador -> BD : Registrar celda como Disponible
+        BD --> Controlador : Confirmar registro
+        Controlador --> Interfaz : Mostrar confirmación
+        Interfaz --> Administrador : Celda registrada exitosamente
+    end
+end
+
+== Asignación de celda ==
+
+Administrador -> Interfaz : Solicitar asignación
+Interfaz -> Controlador : Consultar celdas disponibles
+Controlador -> BD : Consultar estado de las celdas
+BD --> Controlador : Listado de celdas
+Controlador --> Interfaz : Enviar celdas disponibles
+Interfaz --> Administrador : Mostrar opciones disponibles
+
+Administrador -> Interfaz : Seleccionar celda y vehículo
+Interfaz -> Controlador : Solicitar asignación
+Controlador -> BD : Verificar disponibilidad
+
+alt Celda disponible
+    Controlador -> BD : Registrar ocupación
+    Controlador -> BD : Actualizar estado a Ocupada
+    BD --> Controlador : Confirmar operación
+    Controlador --> Interfaz : Enviar confirmación
+    Interfaz --> Administrador : Mostrar asignación exitosa
+else Celda no disponible
+    BD --> Controlador : Informar que no está disponible
+    Controlador --> Interfaz : Rechazar asignación
+    Interfaz --> Administrador : Mostrar mensaje de disponibilidad
+end
+
+@enduml

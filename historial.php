@@ -1,20 +1,5 @@
-
 <?php
-$servidor = "127.0.0.1";
-$usuario = "root";
-$contrasena = "Martik1885";
-$base_datos = "autos_colombia";
-$puerto = 3306;
-
-mysqli_report(MYSQLI_REPORT_OFF);
-
-$conexion = new mysqli(
-    $servidor,
-    $usuario,
-    $contrasena,
-    $base_datos,
-    $puerto
-);
+require_once __DIR__ . '/conexion.php';
 
 if ($conexion->connect_error) {
     die("No fue posible conectar con la base de datos.");

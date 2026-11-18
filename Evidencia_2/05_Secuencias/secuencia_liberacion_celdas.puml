@@ -1,0 +1,53 @@
+
+@startuml
+title Diagrama de Secuencia - Liberación de Celdas\nAutos Colombia - Iteración 2
+
+autonumber
+skinparam shadowing false
+skinparam sequence {
+    ArrowColor #0D3761
+    LifeLineBorderColor #0D3761
+    LifeLineBackgroundColor #EAF2F8
+    ParticipantBorderColor #0D3761
+    ParticipantBackgroundColor #EAF2F8
+}
+
+actor Administrador
+boundary "Interfaz de gestión\nde celdas" as Interfaz
+control "Controlador de celdas\n(PHP)" as Controlador
+control "Controlador de ocupación" as Ocupacion
+database "Base de datos\nMySQL" as BD
+
+Administrador -> Interfaz : Consultar celdas ocupadas
+Interfaz -> Controlador : Solicitar listado de celdas
+Controlador -> BD : Consultar celdas con estado Ocupada
+BD --> Controlador : Devolver listado
+Controlador --> Interfaz : Enviar información
+Interfaz --> Administrador : Mostrar celdas ocupadas
+
+Administrador -> Interfaz : Seleccionar celda para liberar
+Interfaz -> Controlador : Solicitar liberación
+Controlador -> BD : Consultar estado actual de la celda
+BD --> Controlador : Devolver estado
+
+alt La celda no está ocupada
+    Controlador --> Interfaz : Informar que no requiere liberación
+    Interfaz --> Administrador : Mostrar mensaje
+else La celda está ocupada
+    Controlador -> Ocupacion : Procesar finalización de ocupación
+    Ocupacion -> BD : Registrar fecha y hora de liberación
+    BD --> Ocupacion : Confirmar actualización
+    Ocupacion -> BD : Actualizar estado de la celda
+
+    alt Celda habilitada
+        BD --> Ocupacion : Estado actualizado a Disponible
+    else Celda requiere mantenimiento
+        BD --> Ocupacion : Estado actualizado a En mantenimiento
+    end
+
+    Ocupacion --> Controlador : Confirmar liberación
+    Controlador --> Interfaz : Enviar resultado
+    Interfaz --> Administrador : Mostrar confirmación
+end
+
+@enduml

@@ -1,0 +1,39 @@
+@startuml
+title Diagrama de Secuencia - Gestion de Usuarios\nAutos Colombia - Iteracion 2
+
+actor Administrador
+participant "Interfaz Web PHP" as Interfaz
+database "Base de Datos MySQL" as BD
+
+Administrador -> Interfaz: Ingresar al modulo de usuarios
+Interfaz -> BD: Consultar usuarios registrados
+BD --> Interfaz: Lista de usuarios
+Interfaz --> Administrador: Mostrar listado de usuarios
+
+Administrador -> Interfaz: Seleccionar opcion registrar usuario
+Interfaz --> Administrador: Mostrar formulario
+
+Administrador -> Interfaz: Ingresar datos personales
+Interfaz -> BD: Validar numero de documento
+BD --> Interfaz: Resultado de validacion
+
+alt Documento no registrado
+    Interfaz -> BD: Guardar nuevo usuario
+    BD --> Interfaz: Confirmar registro
+    Interfaz --> Administrador: Usuario registrado correctamente
+else Documento ya registrado
+    Interfaz --> Administrador: Informar que el documento ya existe
+end
+
+opt Actualizar informacion
+    Administrador -> Interfaz: Solicitar actualizacion
+    Interfaz -> BD: Consultar datos del usuario
+    BD --> Interfaz: Datos actuales
+    Interfaz --> Administrador: Mostrar formulario de edicion
+    Administrador -> Interfaz: Modificar informacion
+    Interfaz -> BD: Guardar cambios
+    BD --> Interfaz: Confirmar actualizacion
+    Interfaz --> Administrador: Informar actualizacion exitosa
+end
+
+@enduml

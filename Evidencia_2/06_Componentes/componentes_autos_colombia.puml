@@ -1,0 +1,52 @@
+
+@startuml
+title Diagrama de Componentes - Autos Colombia\nIteraciones 1 y 2
+
+left to right direction
+
+skinparam componentStyle rectangle
+skinparam shadowing false
+
+actor Administrador
+
+package "Aplicacion Web - PHP" {
+
+    component "Interfaz Web" as Interfaz
+
+    component "Modulo de Vehiculos" as Vehiculos
+    component "Modulo de Parqueadero" as Parqueadero
+    component "Modulo de Historial" as Historial
+
+    component "Modulo de Usuarios" as Usuarios
+    component "Modulo de Celdas" as Celdas
+
+    component "Conexion a MySQL" as Conexion
+}
+
+database "MySQL\nBase de datos autos_colombia" as BD
+
+Administrador --> Interfaz
+
+Interfaz --> Vehiculos
+Interfaz --> Parqueadero
+Interfaz --> Historial
+Interfaz --> Usuarios
+Interfaz --> Celdas
+
+Vehiculos --> Conexion
+Parqueadero --> Conexion
+Historial --> Conexion
+Usuarios --> Conexion
+Celdas --> Conexion
+
+Conexion --> BD
+
+note bottom of BD
+  Tablas principales:
+  - vehiculos
+  - registros_parqueo
+  - usuarios
+  - celdas
+end note
+
+@enduml
